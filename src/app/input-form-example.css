@@ -43,3 +43,11 @@ ul {
   list-style-type: none;
   margin-top: 4px;
 }
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.example-card {
+  max-width: 400px;
+}
