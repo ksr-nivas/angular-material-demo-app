@@ -1,6 +1,5 @@
 .example-form {
   min-width: 150px;
-  max-width: 500px;
   width: 100%;
 }
 
@@ -10,4 +9,29 @@
 
 td {
   padding-right: 8px;
+  margin-top: 16px;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-top: 5px;
+  margin-left: 25px;
+  margin-bottom: 25px;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0 1em;
+}
+
+.example-section {
+  margin: 12px 0;
+}
+
+.example-margin {
+  margin: 0 12px;
+}
+
+ul {
+  list-style-type: none;
+  margin-top: 4px;
 }
