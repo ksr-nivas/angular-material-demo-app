@@ -1,8 +1,12 @@
+<h3>Angular Material Components</h3>
+
 <form class="example-form">
+  <h4>Input Boxes</h4>
+
   <table class="example-full-width" cellspacing="0">
     <tr>
       <td>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width">
           <mat-label>First name</mat-label>
           <input matInput />
         </mat-form-field>
@@ -29,23 +33,6 @@
   </p>
 
   <table class="example-full-width" cellspacing="5">
-    <mat-label>Gender</mat-label>
-    <tr>
-      <mat-radio-group aria-label="Select an option">
-        <mat-radio-button value="1">Male</mat-radio-button>
-        <mat-radio-button value="2">Female</mat-radio-button>
-      </mat-radio-group>
-    </tr>
-    <tr>
-      <mat-form-field appearance="fill">
-        <mat-label>Favorite food</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let food of foods" [value]="food.value">
-            {{food.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </tr>
     <tr>
       <td>
         <mat-form-field class="example-full-width">
@@ -64,17 +51,41 @@
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Postal Code</mat-label>
         <input
-          matInput
-          #postalCode
-          maxlength="5"
-          placeholder="Ex. 94105"
-          value="94043"
-        />
+      matInput
+      #postalCode
+      maxlength="5"
+      placeholder="Ex. 94105"
+      value="94043"
+    />
         <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
       </mat-form-field>
     </tr>
+    <h4>Radio Buttons</h4>
+
+    <mat-label>Gender</mat-label>
+    <tr>
+      <mat-radio-group aria-label="Select an option">
+        <mat-radio-button value="1">Male</mat-radio-button>
+        <mat-radio-button value="2">Female</mat-radio-button>
+      </mat-radio-group>
+    </tr>
+    <h4>Dropdown</h4>
+
+    <tr>
+      <mat-form-field appearance="fill" class="example-full-width">
+        <mat-label>Favorite food</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{food.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </tr>
+
   </table>
 </form>
+
+<h4>Checkboxes</h4>
 
 <section class="example-section">
   <span class="example-list-section">
@@ -104,6 +115,8 @@
 </section>
 <mat-divider></mat-divider>
 
+<h4>Buttons</h4>
+
 <section>
   <div class="example-label">Basic</div>
   <div class="example-button-row">
@@ -113,6 +126,10 @@
     <button mat-button color="warn">Warn</button>
     <button mat-button disabled>Disabled</button>
     <a mat-button href="https://www.google.com/" target="_blank">Link</a>
+    <button mat-raised-button color="primary"
+      matBadge="8" matBadgePosition="before" matBadgeColor="accent">
+    Action
+  </button>
   </div>
 </section>
 <mat-divider></mat-divider>
@@ -127,6 +144,77 @@
     <a mat-raised-button href="https://www.google.com/" target="_blank">Link</a>
   </div>
 </section>
+
+<mat-divider></mat-divider>
+<mat-spinner></mat-spinner>
+
+<h4>Stepper</h4>
+
+<mat-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Fill out your name</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
+    <form [formGroup]="secondFormGroup">
+      <mat-form-field appearance="fill">
+        <mat-label>Address</mat-label>
+        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+             required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-stepper>
+<mat-divider></mat-divider>
+<h4>Chips</h4>
+
+<mat-form-field class="example-chip-list example-full-width" appearance="fill">
+  <mat-label>Favorite Fruits</mat-label>
+  <mat-chip-list #chipList aria-label="Fruit selection">
+    <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable" [removable]="removable" (removed)="remove(fruit)">
+      {{fruit.name}}
+      <button matChipRemove *ngIf="removable">
+      <mat-icon>cancel</mat-icon>
+    </button>
+    </mat-chip>
+    <input placeholder="New fruit..."
+         [matChipInputFor]="chipList"
+         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+         [matChipInputAddOnBlur]="addOnBlur"
+         (matChipInputTokenEnd)="add($event)">
+  </mat-chip-list>
+</mat-form-field>
+
+<mat-divider></mat-divider>
+
+<h4>Tabs</h4>
+<mat-tab-group>
+  <mat-tab label="First"> Content 1 </mat-tab>
+  <mat-tab label="Second"> Content 2 </mat-tab>
+  <mat-tab label="Third"> Content 3 </mat-tab>
+</mat-tab-group>
+
+
 
 <!-- Copyright 2023 Google LLC. All Rights Reserved.
     Use of this source code is governed by an MIT-style license that

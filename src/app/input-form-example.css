@@ -18,6 +18,14 @@ td {
   margin-bottom: 25px;
 }
 
+.mat-button {
+  margin: 0.5rem 1rem;
+}
+
+.mat-raised-button {
+  margin: 0.5rem 1rem;
+}
+
 table {
   border-collapse: collapse;
   border-spacing: 0 1em;

@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { ThemePalette } from '@angular/material/core';
 
 /**
@@ -8,6 +11,10 @@ import { ThemePalette } from '@angular/material/core';
 interface Food {
   value: string;
   viewValue: string;
+}
+
+export interface Fruit {
+  name: string;
 }
 
 export interface Task {
@@ -22,7 +29,22 @@ export interface Task {
   templateUrl: 'input-form-example.html',
   styleUrls: ['input-form-example.css'],
 })
-export class InputFormExample {
+export class InputFormExample implements OnInit {
+
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  constructor(private _formBuilder: FormBuilder) {}
+
+  ngOnInit() {
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
+  }
+
+
   foods: Food[] = [
     { value: 'steak-0', viewValue: 'Steak' },
     { value: 'pizza-1', viewValue: 'Pizza' },
@@ -64,6 +86,36 @@ export class InputFormExample {
       return;
     }
     this.task.subtasks.forEach((t) => (t.completed = completed));
+  }
+
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
+  fruits: Fruit[] = [
+    {name: 'Lemon'},
+    {name: 'Lime'},
+    {name: 'Apple'},
+  ];
+
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    // Add our fruit
+    if (value) {
+      this.fruits.push({name: value});
+    }
+
+    // Clear the input value
+    event.chipInput!.clear();
+  }
+
+  remove(fruit: Fruit): void {
+    const index = this.fruits.indexOf(fruit);
+
+    if (index >= 0) {
+      this.fruits.splice(index, 1);
+    }
   }
 }
 
